@@ -1,0 +1,47 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Hunt Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ontouchmove="event.preventDefault()" style="touch-action: none;">
+  <div id="levelLabel"></div>
+  <header>
+    <h1>Word Hunt Game</h1>
+    <div class="toggle-theme" onclick="toggleTheme()">Toggle Dark Mode</div>
+  </header>
+
+  <div class="difficulty-selection" id="difficultySelection">
+    <button onclick="startGame('very_easy')">Very Easy</button>
+    <button onclick="startGame('easy')">Easy</button>
+    <button onclick="startGame('medium')">Medium</button>
+    <button onclick="startGame('hard')">Hard</button>
+  </div>
+
+  <div class="game-container" id="gameContainer">
+    <div class="circular-timer">
+      <svg viewBox="0 0 100 100">
+        <circle class="bg" cx="50" cy="50" r="45"></circle>
+        <circle class="progress" id="timerCircle" cx="50" cy="50" r="45" stroke-dasharray="282.6" stroke-dashoffset="0"></circle>
+      </svg>
+    </div>
+    <div id="timer"></div>
+    <div class="game-content">
+      <div class="word-grid" id="wordGrid"></div>
+      <div class="word-list-container">
+        <h2>Words to Find:</h2>
+        <ul class="word-list" id="wordList"></ul>
+      </div>
+    </div>
+    <div class="message" id="gameMessage"></div>
+    <button id="resetButton" onclick="resetGame()">Play Again</button>
+  </div>
+
+  <audio id="tickingSound" src="https://www.soundjay.com/clock/sounds/clock-ticking-1.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
+</body>
+</html>

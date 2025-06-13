@@ -72,15 +72,22 @@ body::before {
   color: white; 
   border: none; 
   border-radius: 12px;
-  padding: 18px 36px; 
-  font-size: 1.2rem; 
+  padding: 25px 50px; /* Increased padding (bigger button) */
+  font-size: 1.5rem;  /* Larger text (from 1.2rem) */
   font-weight: bold;
   cursor: pointer; 
   transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  min-width: 180px;
+  min-width: 220px;   /* Wider minimum width (from 180px) */
 }
 
+@media (max-width: 768px) {
+  .level-buttons button {
+    padding: 20px 40px;
+    font-size: 1.3rem;
+    min-width: 180px;
+  }
+}
 /* Game Container */
 .game-container { 
   flex: 1; 

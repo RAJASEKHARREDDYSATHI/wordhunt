@@ -1,152 +1,324 @@
-* {
-    user-select: none;
-    box-sizing: border-box;
+* { 
+  user-select: none; 
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
-    transition: background 0.3s ease, color 0.3s ease;
+html, body { 
+  height: 100%; 
+  font-family: 'Inter', sans-serif; 
+  overflow: hidden; 
 }
 
-body {
-    background: linear-gradient(135deg, #ece9e6, #ffffff);
-    display: flex;
-    flex-direction: column;
+body { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  
+   background: url(word.jpg) no-repeat center center fixed;
+   background-size: cover; 
+
 }
 
-body.dark {
-    background: #121212;
-    color: #e0e0e0;
+/* Background only for level selection */
+body::before {
+  content: ""; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+ 
+  
+  opacity: 0.8; 
+  z-index: -1;
+  display: none;
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
 
-header .toggles {
-    margin-top: 10px;
-}
 
-.toggles label {
-    margin: 0 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-#levelLabel {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: rotate(-90deg) translateY(-50%);
-    transform-origin: left top;
-    font-size: 24px;
-    font-weight: bold;
-    color: #4CAF50;
-    padding: 10px;
-}
-
+/* Level Selection */
 .difficulty-selection {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
-    flex-wrap: wrap;
+  flex: 1; 
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  position: relative;
 }
 
-.difficulty-selection button {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 20px 40px;
-    font-size: 22px;
-    transition: background 0.3s ease;
-    cursor: pointer;
+.game-title {
+  color: #2c3e50;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.difficulty-selection button:hover {
-    background: #45a049;
+.level-buttons {
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  /* background: rgba(255,255,255,0.9);  */
+  padding: 350px 40px 30px; /* Top padding increased (50px instead of 30px) */
+  border-radius: 20px; 
+  /* box-shadow: 0 10px 30px rgba(0,0,0,0.2); */
 }
 
-.game-container {
-    flex: 1;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.level-buttons button {
+  background: linear-gradient(to right, #4CAF50, #81C784);
+  color: white; 
+  border: none; 
+  border-radius: 12px;
+  padding: 18px 36px; 
+  font-size: 1.2rem; 
+  font-weight: bold;
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 180px;
 }
 
-.game-content {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Game Container */
+.game-container { 
+  flex: 1; 
+  display: none; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 20px; 
+  width: 100%;
+  background: url('levels.avif') no-repeat center center fixed;
+   background-size: cover; 
+  gap: 20px;
 }
 
-.word-grid {
-    display: grid;
-    gap: 3px;
+.game-content { 
+  display: flex; 
+  gap: 30px; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.word-grid { 
+  display: grid; 
+  gap: 8px; 
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .grid-cell {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border: 2px solid #ccc;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
+  width: 50px; 
+  height: 50px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  background-color: #f8f9fa; 
+  border: 2px solid #dee2e6;
+  font-size: 24px; 
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.grid-cell.selected {
-    background-color: #FF9800;
-    color: white;
+.grid-cell.selected { 
+  background-color: #FF9800; 
+  color: white; 
+  border-color: #e68a00;
+  transform: scale(1.05);
 }
 
 .grid-cell.matched {
-    background-color: #2196F3;
-    color: white;
+  background-color: #2196F3; 
+  color: white;
+  border-color: #0d8bf2;
+  animation: flash 0.3s ease-out 2;
+}
+
+@keyframes flash { 
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
 }
 
 .word-list-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background: white; 
+  padding: 20px; 
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+  min-width: 250px;
+  max-width: 300px;
 }
 
-.word-list li.found {
-    text-decoration: line-through;
-    color: gray;
+.word-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.message {
-    font-size: 24px;
-    margin-top: 20px;
-    display: none;
+.word-list li {
+  padding: 10px;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eee;
+  transition: all 0.2s ease;
+}
+
+.word-list li.found { 
+  text-decoration: line-through; 
+  color: #aaa;
+  transform: translateX(5px);
+}
+
+/* Timer and buttons section */
+.circular-timer {
+  margin-bottom: 10px;
+  color:white
+}
+
+#timer { 
+  font-size: 1.5rem; 
+  margin-bottom: 15px; 
+  font-weight: bold;
+  color:white;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Rest of the CSS remains the same... */
+
+
+.game-buttons button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 #resetButton {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 16px;
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  background-color: #2196F3;
 }
 
-#timer {
-    font-size: 24px;
-    margin-bottom: 15px;
+#resetButton:hover {
+  background-color: #0d8bf2;
+}
+
+#backButton {
+  background-color: #f44336;
+}
+
+#backButton:hover {
+  background-color: #e53935;
+}
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.popup-content h2 {
+  color: #f44336;
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+.popup-content p {
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.popup-buttons button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.popup-buttons button:first-child {
+  background-color: #2196F3;
+  color: white;
+}
+
+.popup-buttons button:first-child:hover {
+  background-color: #0d8bf2;
+}
+
+.popup-buttons button:last-child {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.popup-buttons button:last-child:hover {
+  background-color: #388E3C;
+}
+
+/* Responsive */
+@media (max-width:768px) {
+  .game-content { 
+    flex-direction: column; 
+    gap: 20px;
+  }
+  
+  .level-buttons { 
+    grid-template-columns: 1fr; 
+    padding: 20px;
+  }
+  
+  .game-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .popup-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .popup-buttons button {
+    width: 100%;
+  }
 }

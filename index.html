@@ -1,27 +1,25 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Word Hunt Game</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body ontouchmove="event.preventDefault()" style="touch-action: none;">
-  <div id="levelLabel"></div>
-  <header>
-    <h1>Word Hunt Game</h1>
-    <div class="toggle-theme" onclick="toggleTheme()">Toggle Dark Mode</div>
-  </header>
-
+<body>
+  <!-- Level Selection Screen -->
   <div class="difficulty-selection" id="difficultySelection">
-    <button onclick="startGame('very_easy')">Very Easy</button>
-    <button onclick="startGame('easy')">Easy</button>
-    <button onclick="startGame('medium')">Medium</button>
-    <button onclick="startGame('hard')">Hard</button>
+    <h1 class="game-title">WORD HUNT</h1>
+    <div class="level-buttons">
+      <button onclick="startGame('very_easy')">Very Easy</button>
+      <button onclick="startGame('easy')">Easy</button>
+      <button onclick="startGame('medium')">Medium</button>
+      <button onclick="startGame('hard')">Hard</button>
+    </div>
   </div>
 
+  <!-- Game Screen -->
   <div class="game-container" id="gameContainer">
     <div class="circular-timer">
       <svg viewBox="0 0 100 100">
@@ -37,11 +35,25 @@
         <ul class="word-list" id="wordList"></ul>
       </div>
     </div>
-    <div class="message" id="gameMessage"></div>
-    <button id="resetButton" onclick="resetGame()">Play Again</button>
+    <div class="game-buttons">
+      <button id="resetButton" onclick="resetGame()">Play Again</button>
+      <button id="backButton" onclick="goBack()">Go Back</button>
+    </div>
   </div>
 
-  <audio id="tickingSound" src="https://www.soundjay.com/clock/sounds/clock-ticking-1.mp3" preload="auto"></audio>
+  <!-- Time's Up Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <h2>TIME'S UP!</h2>
+      <p>You didn't find all the words in time.</p>
+      <div class="popup-buttons">
+        <button onclick="resetGame()">Try Again</button>
+        <button onclick="goBack()">Change Level</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="tickingSound" src="ticking.mp3" preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>
